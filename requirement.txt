@@ -1,0 +1,100 @@
+FW: XJ项目初期需求
+People Yahoo
+ZHAJUN <junzha@msn.com>  Today at 4:06 PM
+To	
+luweiy123@yahoo.com
+Message body
+Hi. Lu:
+
+I also suggest the following query feature:
+
+1. The top 20 substation event on all the device.
+2. The top 20 substation event hourly distribution.
+3. The top 20 substation event daily distribution.
+4. The top 20 devices with most event.
+5. The top 20 devices hourly distribution.
+6. The top 20 device daily distribution.
+7. The top 20 device with longest alarm duration (For example. the device status from ON to OFF, count the duration between ON and OFF)
+
+Will send you the sample data shortly.
+
+BR
+
+Jun
+
+From: shendongyan@msn.com
+To: junzha@msn.com; pei.liu@hotmail.com
+Subject: XJ项目初期需求
+Date: Sun, 25 Sep 2016 02:59:09 +0000
+
+Hi,大家好：
+      有关XJ项目的初期需求大致如下：
+
+
+20160110190057,865,1,15,102,27980,842006620,0,3,T814412]ASCB-TM24 Electric Energy Meter Alarm Off17245,T814412]ASCB-TM24 Electric Energy Meter Alarm Off17245,,0,,0,0
+
+
+20160110190057,868,1,15,102,27633,842006620,0,3,T814065]ASCA-TM24 Electric Energy Meter Alarm Off17245,T814065]ASCA-TM24 Electric Energy Meter Alarm Off17245,,0,,0,0
+
+
+20160110192307,868,1,15,102,27633,842006620,0,1,T814065]ASCA-TM24 Electric Energy Meter Alarm On31330,T814065]ASCA-TM24 Electric Energy Meter Alarm On31330,,1,,0,0
+20160110192307,868,1,15,102,27980,842006620,0,1,T814412]ASCB-TM24 Electric Energy Meter Alarm On31330,T814412]ASCB-TM24 Electric Energy Meter Alarm On31330,,1,,0,0
+
+
+XJ通过oracle的一个数据表保存这些信息，表的SQL如下：
+CREATE TABLE [dbo].[SER_DATA_301](
+[SERDATE] [numeric](14, 0) NOT NULL,
+[MSEC] [numeric](10, 0) NOT NULL,
+[SRC] [numeric](10, 0) NOT NULL,
+[ETYPE] [numeric](10, 0) NOT NULL,
+[ESUBTYPE] [numeric](10, 0) NOT NULL,
+[ESTATUS] [numeric](10, 0) NOT NULL,
+[PARAM] [numeric](10, 0) NOT NULL,
+[PARAM2] [numeric](10, 0) NOT NULL,
+[ALARMLEVEL] [numeric](10, 0) NULL,
+[NOTE1] [varchar](128) NULL,
+[NOTE2] [varchar](128) NULL,
+[OPTOR] [varchar](20) NULL,
+[FLAG] [numeric](10, 0) NOT NULL,
+[ACKOR] [varchar](20) NULL,
+[ACKTIME] [numeric](10, 0) NULL,
+[SERFLAG] [numeric](10, 0) NULL,
+ CONSTRAINT [SER_DATA_301_PK_SERDATA_301] PRIMARY KEY CLUSTERED 
+(
+[SERDATE] ASC,
+[MSEC] ASC,
+[SRC] ASC,
+[ETYPE] ASC,
+[ESUBTYPE] ASC,
+[ESTATUS] ASC,
+[PARAM] ASC,
+[PARAM2] ASC,
+[FLAG] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+最上面的报警信息是ABB系统报出来的，有关ASCB-TM24 Electric Energy Meter这个设备对象的事件报警，
+我们目前知道的，在每条报警信息里面，20160110190057代表着报警事件发生的时间，即table的SERDATE属性，
+而报警信息里面的T814065这个字符串应该是代表着这个设备的ID，或者通过这个可以同XJ系统的设备模型对象建立映射关联，我们目前就可以认为代表着设备ID；
+我们关注的是T814065]ASCA-TM24 Electric Energy Meter Alarm On31330这样的信息，XJ保存到了table的NOTE1和NOTE2属性中，
+这个字符串里面的Off和On就代表着设备的两种状态，即停止和启动，目前的需求有两个：
+
+1、假设给定了一个设备ID，找出该设备ID在一段时间内的Off/On状态变化的次数；
+2、假设给定了一个设备ID，找出该设备ID在一段时间内，从On到Off状态或者从Off到On状态的累积时间统计；
+
+
+
+
+使用ORACLE在事件数量比较大的情况下，进行统计时间比较长，客户难以接受，可以通过ES进行数据分析聚合得到结果，时间应该可以接受。
+
+
+
+
+
+
+                                                                                                                                                               endy
+
+
+
+
