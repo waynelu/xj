@@ -1,9 +1,4 @@
 FW: XJ项目初期需求
-People Yahoo
-ZHAJUN <junzha@msn.com>  Today at 4:06 PM
-To	
-luweiy123@yahoo.com
-Message body
 Hi. Lu:
 
 I also suggest the following query feature:
@@ -88,13 +83,4 @@ CREATE TABLE [dbo].[SER_DATA_301](
 
 使用ORACLE在事件数量比较大的情况下，进行统计时间比较长，客户难以接受，可以通过ES进行数据分析聚合得到结果，时间应该可以接受。
 
-
-
-
-
-
-                                                                                                                                                               endy
-
-
-
-
+                 endy
