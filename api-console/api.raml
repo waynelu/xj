@@ -1,0 +1,41 @@
+#%RAML 0.8
+title: XJ API
+version: v1
+baseUri: http://localhost:3000/api
+
+protocols: [ HTTP, HTTPS ]
+
+
+/events:
+  description: Events API
+  post:
+    description: Get events by device id.
+    body:
+      application/json:
+         example: |
+          {
+            "device_id": "T814065"
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+
+  /alarms:
+    description: Alarms API
+    post:
+      description: Get alarms by device id, and will return all alarms if device id wasn't provided.
+      body:
+        application/json:
+           example: |
+            {
+              "device_id": "T814065",
+              "from": "2016-01-01 00:00:00",
+              "to": "2016-01-10 00:00:00"
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
