@@ -23,6 +23,7 @@ app.all('/*', function(req, res, next) {
 
 
 app.use('/docs', express.static(__dirname + '/api-console'));
+app.use('/taglist', express.static(__dirname + '/taglist'));
 app.use('/', require('./routes'));
 
 // If no route is matched by now, it must be a 404
