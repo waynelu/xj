@@ -19,15 +19,11 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.xml(getParameterByName('name') + ".xml", function(error, flare) {
+d3.xml(getParameterByName('name') + ".xml", function(flare) {
 
-  if (error) throw error;
-
-  flare.x0 = 0;
-  flare.y0 = 0;
-  var json = xmlToJSON2(flare);
-  console.log(json);
-  update(root = json.children[0].children[0]);
+  var json = xmlToJSON2(flare.documentElement);
+  console.log(json.children[0]);
+  update(root = json.children[0]);
 });
 
 function getParameterByName(name, url) {
@@ -54,11 +50,16 @@ function xmlToJSON2(xml) {
     if (xml.textContent&&xml.textContent.length) {
         o["textContent"] = xml.textContent.trim();
     }
-    if (xml.children.length) {        
-        o.children = Array.prototype.map.call(xml.children,
-                    function(child) {
-                        return xmlToJSON2(child);
-                    });
+    if (xml.childNodes && xml.childNodes.length > 0) {        
+	var length = xml.childNodes.length;
+	for (i=0;i<length;i++) {
+	  if(xml.childNodes[i] && xml.childNodes[i].nodeType == 3) xml.removeChild(xml.childNodes[i]);
+	}
+	if (xml.childNodes.length > 0) {
+	  o.children = Array.prototype.map.call(xml.childNodes, function(child) {
+                  return xmlToJSON2(child);
+                });
+	}
                 //replace each xml object in the child array
                 //with its JSON-ified version
     }
