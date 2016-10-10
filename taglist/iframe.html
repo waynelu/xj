@@ -4,7 +4,7 @@
 
 <h1 id="h1TagId"></h1>
 
-<iframe id="innerFrame" style="border: none;" src="" height="480" width="800"></iframe>
+<iframe id="innerFrame" style="border: none;" src="" height="900" width="900"></iframe>
 
 <script>
 function getParameterByName(name, url) {
@@ -24,7 +24,7 @@ if(tagid) {
 } else {
  query = '*';
 }
-var src = "http://localhost:5601/app/kibana#/dashboard/xj-data-dashboard?embed=true&_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:'2016-01-01T01:18:42.584Z',mode:absolute,to:'2016-01-12T01:33:42.584Z'))&_a=(filters:!(),options:(darkTheme:!f),panels:!((col:1,id:xj-data-value,panelIndex:1,row:1,size_x:12,size_y:4,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'" + query + "')),title:'xj-data%20dashboard',uiState:(P-1:(vis:(legendOpen:!f))))";
+var src = "http://localhost:5601/app/kibana#/dashboard/xj-data-dashboard?embed=true&_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:'2016-01-01T01:18:42.584Z',mode:absolute,to:'2016-01-12T01:33:42.584Z'))&_a=(filters:!(),options:(darkTheme:!f),panels:!((col:1,id:xj-data-metrics,panelIndex:1,row:1,size_x:12,size_y:2,type:visualization),(col:1,id:xj-data-average-value,panelIndex:2,row:3,size_x:12,size_y:3,type:visualization),(col:1,id:xj-data-max-value,panelIndex:3,row:6,size_x:12,size_y:3,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'"+query+"')),title:'xj-data%20dashboard',uiState:(P-2:(vis:(legendOpen:!f)),P-3:(vis:(legendOpen:!f))))";
 var iframe = document.getElementById('innerFrame');
 iframe.src = src;
 
