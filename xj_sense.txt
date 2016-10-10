@@ -1,0 +1,47 @@
+PUT /xj
+{
+  "mappings": {
+    "event": {
+      "properties": {
+        "EVENT": {
+          "type": "string",
+          "index": "not_analyzed"
+        }
+      }
+    }
+  }
+}
+
+GET /xj
+
+DELETE /xj
+
+GET /xj/event/_search?
+
+
+GET /xj/event/_search/?pretty=1&size=10000
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "NOTE1": "T814065"
+          }
+        },
+        {
+          "range" : {
+            "SERDATE": {
+              "gte": "2016-01-01 00:00:00",
+              "lte": "2016-01-05 00:00:00",
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "sort" : [
+      {"SERDATE" : {"order" : "asc"}}
+   ]
+}

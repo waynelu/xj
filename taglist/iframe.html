@@ -1,0 +1,40 @@
+<!-- Bootstrap core CSS -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+<h1 id="h1TagId"></h1>
+
+<iframe id="innerFrame" style="border: none;" src="" height="480" width="800"></iframe>
+
+<script>
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+var tagid = getParameterByName('tagid');
+if(tagid) {
+ query = 'tagid:' + tagid;
+} else {
+ query = '*';
+}
+var src = "http://localhost:5601/app/kibana#/dashboard/xj-data-dashboard?embed=true&_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:'2016-01-01T01:18:42.584Z',mode:absolute,to:'2016-01-12T01:33:42.584Z'))&_a=(filters:!(),options:(darkTheme:!f),panels:!((col:1,id:xj-data-value,panelIndex:1,row:1,size_x:12,size_y:4,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'" + query + "')),title:'xj-data%20dashboard',uiState:(P-1:(vis:(legendOpen:!f))))";
+var iframe = document.getElementById('innerFrame');
+iframe.src = src;
+
+var h1TagId = document.getElementById('h1TagId');
+if (tagid) {
+  h1TagId.innerHTML = 'Tag ID - ' + tagid;
+} else {
+  h1TagId.innerHTML = 'Tag ID - *';
+}
+</script>
+ <script src="//d3js.org/d3.v3.min.js"></script>
+ <script src="js/xj.js"></script>
+ 

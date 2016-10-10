@@ -14,7 +14,7 @@ var tree = d3.layout.tree()
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("div.left").append("svg")
     .attr("width", width + margin.left + margin.right)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -174,6 +174,13 @@ function click(d) {
   } else {
     d.children = d._children;
     d._children = null;
+    
+    var names = d.name.split(" - ");
+    var iframe = document.getElementById('outerFrame');
+    iframe.src = "/taglist/iframe.html?tagid=" + names[0];
+    //$( '#dashboard' ).attr( 'src', function ( i, val ) { return val; });
+    //iframe.src = iframe.src;
+    //iframe.contentWindow.location.reload(true);
   }
   update(d);
 }

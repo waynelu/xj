@@ -21,7 +21,7 @@ app.all('/*', function(req, res, next) {
   }
 });
 
-
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
 app.use('/docs', express.static(__dirname + '/api-console'));
 app.use('/taglist', express.static(__dirname + '/taglist'));
 app.use('/', require('./routes'));
