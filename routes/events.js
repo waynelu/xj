@@ -2,6 +2,8 @@ var request = require('request');
 var config = require('../config/config.js')
 var Validator = require('jsonschema').Validator;
 var elasticsearch = require('elasticsearch');
+var _ = require('underscore');
+
 var client = new elasticsearch.Client({
   host: config.es.host,
   log: config.es.logLevel
@@ -96,9 +98,7 @@ var events = {
     }).then(function (resp) {
         var hits = resp.hits.hits;
         
-        var stats = {
-          "alarm" : {}
-        };
+        var stats = [];
         hits.forEach(function(event){
           var serDate = new Date(event._source.SERDATE);
           var deviceId = event._source.DEVICE;
@@ -106,14 +106,23 @@ var events = {
           console.log(deviceId + ' : ' + event);
           if (!event) return;
           
-          if (!stats.alarm[deviceId]) stats.alarm[deviceId] = {};
+          var device = _.find(stats, function(device) {
+            return device.deviceId == deviceId;
+          });
+          if (!device) {
+            device = {'deviceId': deviceId};
+            stats.push(device);
+          }
           
           if (event.indexOf("On") > 0) {
             var eventArr = event.split("On");
             var alarmId = eventArr[0].trim();
             
-            if (stats.alarm[deviceId][alarmId]) {
-              var alarm = stats.alarm[deviceId][alarmId];
+            if (!device.alarms) device.alarms = [];
+            var alarm = _.find(device.alarms, function(alarm) {
+              return alarm.alarmId === alarmId;
+            });
+            if (alarm) {
               if (alarm.on) {
                 alarm.on.lastAnchor = serDate;
               } else {
@@ -131,22 +140,26 @@ var events = {
                 alarm.off.offOnTotalDuration += offOnDuration;
               }
             } else {
-              var on = {
-                "on": {
+              var alarm = {};
+              alarm['alarmId'] = alarmId;
+              alarm['on'] = {
                   onOffCount: 0,
                   onOffMaxDuration: 0,
                   onOffTotalDuration: 0,
                   lastAnchor: serDate,
-                }
               }
-              stats.alarm[deviceId][alarmId] = on;
+              device.alarms.push(alarm);
             }
           } else if (event.indexOf("Off") > 0) {
             var eventArr = event.split("Off");
             var alarmId = eventArr[0].trim();
             
-            if (stats.alarm[deviceId][alarmId]) {
-              var alarm = stats.alarm[deviceId][alarmId];
+            if (!device.alarms) device.alarms = [];
+
+            var alarm = _.find(device.alarms, function(alarm) {
+              return alarm.alarmId === alarmId;
+            });
+            if (alarm) {
               if (alarm.off) {
                 alarm.off.lastAnchor = serDate;
               } else {
@@ -164,15 +177,15 @@ var events = {
                 alarm.on.onOffTotalDuration += onOffDuration;
               }
             } else {
-              var off = {
-                "off": {
+              var alarm = {};
+              alarm['alarmId'] = alarmId;
+              alarm['off'] = {
                   offOnCount: 0,
                   offOnMaxDuration: 0,
                   offOnTotalDuration: 0,
                   lastAnchor: serDate,
-                }
               }
-              stats.alarm[deviceId][alarmId] = off;
+              device.alarms.push(alarm);
             }
           }
         });
