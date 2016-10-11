@@ -1,0 +1,92 @@
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <div id="chart_div"></div>
+  <script>
+  google.charts.load('current', {packages: ['corechart', 'bar']});
+  google.charts.setOnLoadCallback(drawBarColors);
+
+  function drawBarColors() {
+      var data = google.visualization.arrayToDataTable([
+          ['Device', 'Max Duration', 'Total Duration'],
+          [
+            "ASCB-TM24 Electric Energy Meter Alarm - OFF->ON",
+            120008000,
+            222488000
+          ],
+          [
+            "ASCB-TM24 Electric Energy Meter Alarm - ON->OFF",
+            12549000,
+            25452000
+          ],
+          [
+            "ASCA-TM24 Electric Energy Meter Alarm - OFF->ON",
+            120008000,
+            222488000
+          ],
+          [
+            "ASCA-TM24 Electric Energy Meter Alarm - ON->OFF",
+            12549000,
+            25452000
+          ],
+          [
+            "ASCA-P2H 2# Valve Hall Air Conditioner Alarm Type B - ON->OFF",
+            112484000,
+            112500000
+          ],
+          [
+            "ASCB-P2H 2# Valve Hall Air Conditioner Alarm Type B - OFF->ON",
+            16000,
+            16000
+          ],
+          [
+            "ASCB-P2H 2# Valve Hall Air Conditioner Alarm Type B - ON->OFF",
+            112484000,
+            112484000,
+          ],
+          [
+            "ASCB-P1H 2# Valve Hall Air Conditioner Alarm Type B - OFF->ON",
+            17605000,
+            17605000
+          ],
+          [
+            "ASCB-P1H 2# Valve Hall Air Conditioner Alarm Type B - OFF->ON",
+            148875000,
+            148875000
+          ],
+          [
+            "ASCA-P1H 2# Valve Hall Air Conditioner Alarm Type B - OFF->ON",
+            17605000,
+            17605000
+          ],
+          [
+            "ASCA-P1H 2# Valve Hall Air Conditioner Alarm Type B - ON->OFF",
+            148875000,
+            148875000
+          ],
+          [
+            "ASCB-P2H 1# Valve Hall Air Conditioner Alarm Type B - ON->OFF",
+            112474000,
+            112474000
+          ],
+          [
+            "ASCA-P2H 1# Valve Hall Air Conditioner Alarm Type B - ON->OFF",
+            112474000,
+            112474000
+          ]
+        ]);
+
+        var options = {
+          //title: 'Duration of the events',
+          chartArea: {width: '50%'},
+          colors: ['#b0120a', '#ffab91'],
+          hAxis: {
+            title: 'Duration',
+            minValue: 0
+          },
+          vAxis: {
+            title: 'Device'
+          }
+        };
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+  </script>
