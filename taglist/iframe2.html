@@ -41,6 +41,7 @@
         $.ajax({
           type: 'POST',
           url:  "http://localhost:3000/api/data/forecast?tag="+tagid, 
+          //url:  "http://r2ubuntu.ddns.net:3000/api/data/forecast?tag="+tagid,
           data: {tag: tagid}, 
           success: function(resp) {
             var dataTable = [['Time','Actual','Sample','Forecast']];
