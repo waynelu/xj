@@ -1,0 +1,6 @@
+{
+    "require": {
+        "fzaninotto/faker": "~1.6",
+        "twbs/bootstrap": "^3.3"
+    }
+}

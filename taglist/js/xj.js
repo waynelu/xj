@@ -177,7 +177,7 @@ function click(d) {
     
     var names = d.name.split(" - ");
     var iframe = document.getElementById('outerFrame');
-    iframe.src = "/taglist/iframe.html?tagid=" + names[0];
+    iframe.src = "/taglist/iframe2.html?tagid=" + names[0];
     //$( '#dashboard' ).attr( 'src', function ( i, val ) { return val; });
     //iframe.src = iframe.src;
     //iframe.contentWindow.location.reload(true);

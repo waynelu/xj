@@ -1,0 +1,29 @@
+<node ID="" name="二次系统">
+	<node ID="52428803" name="辅助前置">
+		<node ID="267387722" name="GIS">
+			<node ID="842006626" name="SF6压力低告警"/>
+		</node>
+		<node ID="267387718" name="UPS电源">
+			<node ID="842006618" name="UPS"/>
+		</node>
+		<node ID="267387719" name="电度表">
+			<node ID="842006619" name="ERTU"/>
+		</node>
+		<node ID="267387721" name="阀冷系统">
+			<node ID="842006623" name="极1低端阀冷系统"/>
+			<node ID="842006622" name="极1高端阀冷系统"/>
+			<node ID="842006625" name="极2低端阀冷系统"/>
+			<node ID="842006624" name="极2高端阀冷系统"/>
+		</node>
+		<node ID="267387725" name="工业水">
+			<node ID="842006627" name="工业水"/>
+		</node>
+		<node ID="267387726" name="雨水泵">
+			<node ID="842006628" name="雨水泵"/>
+		</node>
+		<node ID="267387717" name="直流电源">
+			<node ID="842006617" name="直流110V电源"/>
+		</node>
+	</node>
+	<node ID="52428801" name="交流前置"/>
+</node>

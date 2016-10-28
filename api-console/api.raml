@@ -39,3 +39,21 @@ protocols: [ HTTP, HTTPS ]
           body:
             application/json:
               example: |
+
+/data:
+  description: Data API
+  /forecast:
+    description: Forecast API
+    post:
+      description: 
+      body:
+        application/json:
+           example: |
+            {
+              "tag": "253756161"
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              example: |

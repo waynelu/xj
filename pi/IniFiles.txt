@@ -1,0 +1,6 @@
+False
+\\Mac\Home\elasticsearch\data\xj\pi\xj-data.ini;;
+;;
+;;
+;;
+;;

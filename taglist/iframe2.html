@@ -1,0 +1,70 @@
+<!-- Bootstrap core CSS -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+<h1 id="h1TagId"></h1>
+
+<div id="curve_chart" style="width: 750px; height: 500px; display:table-cell; vertical-align:middle; text-align:center"><img src="img/spinner.gif" style=""></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      
+      function getParameterByName(name, url) {
+          if (!url) url = window.location.href;
+          name = name.replace(/[\[\]]/g, "\\$&");
+          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+              results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+
+      var tagid = getParameterByName('tagid');
+      var h1TagId = document.getElementById('h1TagId');
+      if (tagid) {
+        h1TagId.innerHTML = 'Tag ID - ' + tagid;
+      } else {
+        h1TagId.innerHTML = 'Tag ID - *';
+        tagid = '253756161';
+      }
+
+
+      function drawChart() {
+        var tagid = getParameterByName('tagid');
+        if (!tagid) {
+          tagid = '253756161';
+        }
+        
+        console.log(tagid);
+        $.ajax({
+          type: 'POST',
+          url:  "http://localhost:3000/api/data/forecast?tag="+tagid, 
+          data: {tag: tagid}, 
+          success: function(resp) {
+            var dataTable = [['Time','Actual','Sample','Forecast']];
+            console.log(dataTable.concat(resp));
+            var data = google.visualization.arrayToDataTable(dataTable.concat(resp));
+
+            var options = {
+              title: 'Actual vs. Sample vs. Forecase',
+              curveType: 'function',
+              chartArea: {'width': '90%', 'height': '70%'},
+              legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+            console.log(data);
+          },
+          dataType: 'json'
+        });
+      }
+
+    </script>
+ 
