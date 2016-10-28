@@ -45,7 +45,13 @@
           data: {tag: tagid}, 
           success: function(resp) {
             var dataTable = [['Time','Actual','Sample','Forecast']];
+            
+            if (!resp) {
+              document.getElementById('curve_chart').innerHTML = '<label style="color: red;">something is worng!</label>';
+              return;
+            }
             console.log(dataTable.concat(resp));
+            
             var data = google.visualization.arrayToDataTable(dataTable.concat(resp));
 
             var options = {

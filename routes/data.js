@@ -22,10 +22,10 @@ var data = {
           try {
             res.json(JSON.parse(stdout));
           } catch (ex) {
-            res.json({});
+            res.json(null);
           }
         } else {
-          res.json({});
+          res.json(null);
         }
     });
   }
