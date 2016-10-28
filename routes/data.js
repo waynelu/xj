@@ -19,9 +19,13 @@ var data = {
         }
         
         if (stdout) {
-          res.json(JSON.parse(stdout));
+          try {
+            res.json(JSON.parse(stdout));
+          } catch (ex) {
+            res.json({});
+          }
         } else {
-          res.json({})
+          res.json({});
         }
     });
   }

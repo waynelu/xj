@@ -26,12 +26,10 @@
 
       var tagid = getParameterByName('tagid');
       var h1TagId = document.getElementById('h1TagId');
-      if (tagid) {
-        h1TagId.innerHTML = 'Tag ID - ' + tagid;
-      } else {
-        h1TagId.innerHTML = 'Tag ID - *';
+      if (!tagid) {
         tagid = '253756161';
       }
+      h1TagId.innerHTML = 'Tag ID - ' + tagid;
 
 
       function drawChart() {
@@ -40,7 +38,6 @@
           tagid = '253756161';
         }
         
-        console.log(tagid);
         $.ajax({
           type: 'POST',
           url:  "http://localhost:3000/api/data/forecast?tag="+tagid, 
@@ -51,7 +48,7 @@
             var data = google.visualization.arrayToDataTable(dataTable.concat(resp));
 
             var options = {
-              title: 'Actual vs. Sample vs. Forecase',
+              title: 'Actual(2016/01/01 - 2016/01/11) vs. Sample(2016/01/02 - 2016/01/06) vs. Forecase(2016/01/07 - 2016/01/09 plus. a learning curve)',
               curveType: 'function',
               chartArea: {'width': '90%', 'height': '70%'},
               legend: { position: 'bottom' }
